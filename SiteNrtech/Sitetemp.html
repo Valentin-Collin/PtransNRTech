@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet NRTECH </title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="C:\Users\valen\Downloads\lOGOnRTECH.webp" />
+    
+</head>
+<body>
+
+    <header>
+        <a href="Sitetemp.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+            <img id="logo" src="C:\Users\valen\Downloads\lOGOnRTECH.webp" alt="Logo NRTECH">
+            <h1>Projet NRTECH</h1>
+        </a>
+    </header>
+
+    <section>
+        <h2>Présentation du Projet</h2>
+        <p>
+            Plongez au cœur de notre projet de rénovation des boîtiers de mesure de température à Polytech Nantes. 
+            Notre objectif ? Surveiller et afficher les températures des différentes salles du bâtiment Ireste. 
+             
+        </p>
+    </section>
+
+    <section>
+        <h2>Températures des Salles</h2>
+        
+        <div>
+            <a href="salle_e101.html" >
+                <p class="room">Salle E101</p>
+            </a>
+            <p  id="temperatureE101"> Température actuelle : Chargement en cours...</p>
+        </div>
+        
+        <div>
+            <a href="salle_e102.html" >
+                <p class="room">Salle E102</p>
+            </a>
+                <p>Température actuelle : 24°C</p>
+        </div>
+        
+        <div>
+            <a href="salle_e103.html" >
+                <p class="room">Salle E103</p>
+            </a>
+                <p>Température actuelle : 24°C</p>
+        </div>
+        
+        
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Projet NRTECH</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="FetchData.js"></script>
+
+</body>
+</html>
