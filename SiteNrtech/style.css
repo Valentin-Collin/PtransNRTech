@@ -41,25 +41,76 @@ footer {
     width: 100%;
     height: 5%;
 }
+
 #logo {
     width: 100px;
     height: 100px;
     margin-right: 10px;
 }
+
 #logo, h1 {
-    margin: 0; /* Réinitialise les marges pour le logo et le titre */
-}
-#logo a, h1 a {
-    color: white; /* Garantit que le texte du lien conserve la couleur blanche */
-    text-decoration: none; /* Supprime le soulignement du lien */
+    margin: 0;
 }
 
+#logo a, h1 a {
+    color: white;
+    text-decoration: none;
+}
 
 a {
-    color: #000; /* Couleur noire pour les liens non visités */
-    text-decoration: none; /* Supprime le soulignement par défaut des liens */
+    color: #000;
+    text-decoration: none;
 }
 
 a:hover {
-    color: #ff0404; /* Couleur violette pour les liens au survol */
+    color: #ff0404;
+}
+
+/* Ajoutez ces styles pour le bouton */
+.button-container {
+    display: inline-block;  /* Utilisez "inline-block" pour que la marge fonctionne */
+    margin-right: auto;      /* Pousse le bouton vers la gauche */
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: left;
+    text-decoration: none;
+    background-color: #808080;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #555;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.dropdown-container {
+    margin: 20px;
+    text-align: center;
+}
+
+.dropdown {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Style pour le label (optionnel) */
+label {
+    margin-right: 10px;
+    font-size: 18px;
+    color: #333;
 }
