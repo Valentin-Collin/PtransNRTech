@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Oswald', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
@@ -11,16 +11,25 @@ header {
     text-align: center;
     padding: 1em;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: center; /* Centre verticalement les éléments */
+    justify-content: center; /* Espace les éléments horizontalement */
+}
+.logo-container {
+    flex-grow: 1; /* Fait en sorte que le logo et le titre prennent l'espace disponible */
+}
+.titre{
+    color: white; /* Couleur blanche pour le titre */
+    text-align: match-parent ; /* Centre le texte du titre */
 }
 
 section {
     margin: 20px;
     padding: 20px;
+    padding-bottom: 60px; /* Increase bottom padding to make space for x-axis labels and footer */
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative; /* Make it relative to accommodate absolute positioning */
 }
 
 .temperature {
@@ -39,37 +48,11 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    height: 5%;
+    height: 7%;
 }
-
-#logo {
-    width: 100px;
-    height: 100px;
-    margin-right: 10px;
-}
-
-#logo, h1 {
-    margin: 0;
-}
-
-#logo a, h1 a {
-    color: white;
-    text-decoration: none;
-}
-
-a {
-    color: #000;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #ff0404;
-}
-
-/* Ajoutez ces styles pour le bouton */
 .button-container {
-    display: inline-block;  /* Utilisez "inline-block" pour que la marge fonctionne */
-    margin-right: auto;      /* Pousse le bouton vers la gauche */
+    display: flex; /* Utilise Flexbox pour aligner le bouton */
+    align-items: center; /* Centre verticalement le bouton */
 }
 
 .button {
@@ -85,32 +68,34 @@ a:hover {
     cursor: pointer;
 }
 
-.button:hover {
-    background-color: #555;
+#logo {
+    width: 100px;
+    height: 100px;
+    margin-right: 100px;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
+#logo,
+h1 {
+    margin: 0; /* Réinitialise les marges pour le logo et le titre */
 }
 
-.dropdown-container {
-    margin: 20px;
-    text-align: center;
+#logo a,
+h1 a {
+    color: white; /* Garantit que le texte du lien conserve la couleur blanche */
+    text-decoration: none; /* Supprime le soulignement du lien */
 }
 
-.dropdown {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+a {
+    color: #000; /* Couleur noire pour les liens non visités */
+    text-decoration: none; /* Supprime le soulignement par défaut des liens */
 }
 
-/* Style pour le label (optionnel) */
-label {
+a:hover {
+    color: #5e5d5dd0; /* La couleur reste noire lorsqu'elle est survolée */
+    text-decoration: none; 
+}
+#logo {
+    width: 100px;
+    height: 100px;
     margin-right: 10px;
-    font-size: 18px;
-    color: #333;
 }

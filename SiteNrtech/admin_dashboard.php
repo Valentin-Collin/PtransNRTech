@@ -1,54 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projet NRTECH </title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="C:\Users\valen\Downloads\lOGOnRTECH.webp" />
-    
-</head>
-<body>
+<?php
+session_start();
 
-    <header>
-      
-        <a href="Sitetemp.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
-            <img id="logo" src="C:\Users\valen\Downloads\lOGOnRTECH.webp" alt="Logo NRTECH">
-            <h1>Projet NRTECH</h1>
-        </a>
-    </header>
+// Vérifier si l'utilisateur est connecté en tant qu'administrateur
+if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
+    // Rediriger vers la page de connexion si l'utilisateur n'est pas authentifié
+    header("Location: login.php");
+    exit;
+}
 
-    <section>
-     
-    </section>
+// Vérifier si la méthode de requête est POST
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Récupérer la nouvelle fréquence de mesure depuis le formulaire
+    $new_frequency = $_POST["frequency"];
 
-    <section>
-        <h2>Selectionnez la salle</h2>
-        <div class="dropdown-container">
-            <label for="choices">Salle :</label>
-            <select id="choices" name="choices" class="dropdown">
-                <option value="option1">E101</option>
-                <option value="option2">E102</option>
-                <option value="option3">E103</option>
-            </select>
-        </div>
-        <div class="dropdown-container">
-            <label for="choices">Fréquence de mesure :</label>
-            <select id="choices" name="choices" class="dropdown">
-                <option value="option1">5min</option>
-                <option value="option2">30min</option>
-                <option value="option3">1h</option>
-            </select>
-        </div>
-        
-    </section>
+    // Enregistrer la nouvelle fréquence de mesure dans une base de données ou tout autre système de stockage
+    // Ici, vous pouvez implémenter la logique pour mettre à jour la fréquence de mesure dans votre système
 
-    <footer>
-        <p>&copy; 2024 Projet NRTECH</p>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="FetchData.js"></script>
-
-</body>
-</html>
+    // Rediriger l'utilisateur vers le tableau de bord avec un message de succès
+    header("Location: admin_dashboard.php?message=Frequency updated successfully");
+    exit;
+}
+?>

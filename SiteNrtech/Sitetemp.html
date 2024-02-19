@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projet NRTECH </title>
-    <link rel="stylesheet" href="style.css">
+    <title>Projet NRTECH</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="shortcut icon" href="C:\Users\valen\Downloads\lOGOnRTECH.webp" />
-    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -15,49 +16,47 @@
             <a href="login.html" class="button">Réglage de la fréquence de mesure</a>
         </div>
         <div class="logo-container">
-            <a href="Sitetemp.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
-                <img id="logo" src="C:\Users\33642\Documents\ETN\Ptrans\sitethingspeak\LogoNrtech.webp" alt="Logo NRTECH">
+            <a href="Sitetemp.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; justify-content: center;">
+                <img id="logo" src="C:\Users\valen\Downloads\lOGOnRTECH.webp" alt="Logo NRTECH">
                 <h1 style="margin: 0;">Projet NRTECH</h1>
             </a>
         </div>
     </header>
-    
-
     <section>
         <h2>Présentation du Projet</h2>
         <p>
-            Plongez au cœur de notre projet de rénovation des boîtiers de mesure de température à Polytech Nantes. 
-            Notre objectif ? Surveiller et afficher les températures des différentes salles du bâtiment Ireste. 
-             
+            Plongez au cœur de notre projet de rénovation des boîtiers de mesure de température à Polytech Nantes.
+            Notre objectif ? Surveiller et afficher les températures des différentes salles du bâtiment Ireste.
         </p>
     </section>
 
-    <section>
+    <section class="temperature-section">
         <h2>Températures des Salles</h2>
-        
-        <div>
-            <a href="salle_e101.html" >
-                <p class="room">Salle E101</p>
-            </a>
-            <p  id="temperatureE101"> Température actuelle : Chargement en cours...</p>
+    
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <a href="salle_e101.html" class="text-decoration-none">
+                        <p class="room">Salle E101</p>
+                    </a>
+                    <p class="temperature" id="temperatureE101">Température actuelle : Chargement en cours...</p>
+                </div>
+    
+                <div class="col-sm-4">
+                    <a href="salle_e102.html" class="text-decoration-none">
+                        <p class="room">Salle E102</p>
+                    </a>
+                    <p class="temperature">Température actuelle : 24°C</p>
+                </div>
+    
+                <div class="col-sm-4">
+                    <a href="salle_e103.html" class="text-decoration-none">
+                        <p class="room">Salle E103</p>
+                    </a>
+                    <p class="temperature">Température actuelle : 24°C</p>
+                </div>
+            </div>
         </div>
-        
-        <div>
-            <a href="salle_e102.html" >
-                <p class="room">Salle E102</p>
-            </a>
-                <p>Température actuelle : 24°C</p>
-        </div>
-        
-        <div>
-            <a href="salle_e103.html" >
-                <p class="room">Salle E103</p>
-            </a>
-                <p>Température actuelle : 24°C</p>
-        </div>
-        
-         <!-- Bouton pour rediriger vers une autre page -->
-         
     </section>
 
     <footer>
@@ -66,6 +65,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="FetchData.js"></script>
-
 </body>
 </html>
