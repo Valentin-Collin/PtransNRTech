@@ -1,3 +1,4 @@
+#ESP32(NY) E102_1
 import network
 import utime
 from umqtt.simple import MQTTClient
@@ -6,14 +7,18 @@ import time
 from machine import Pin, SoftI2C
 import requests
 
+# Définition des variables globales pour les champs de fréquence et de température
+FREQUENCY_FIELD = "4"
+TEMPERATURE_FIELD = "3"
+
 WiFi_SSID = "Galaxy A33 5GACC9"
 WiFi_PASS = "finlande"
 SERVER = "mqtt3.thingspeak.com"
 PORT = 1883
 CHANNEL_ID = "2410212"
-USER = "USER_ID"
-CLIENT_ID = "Clien_ID"
-PASSWORD = "Password"
+USER = "ASw3MikoNxkOFTQCBTMkGy0"
+CLIENT_ID = "ASw3MikoNxkOFTQCBTMkGy0"
+PASSWORD = "rPyDxQGnyDcOZWLSjnGwA82k"
 
 # Dynamically set the field based on the field you want to publish
 topicOut = "channels/" + CHANNEL_ID + "/publish"
@@ -71,14 +76,14 @@ current_frequency = None  # Variable pour stocker la fréquence actuelle
 while True:
     # Get frequency from ThingSpeak
     api_key = "1UBZZWF2IZVHKLBA"
-    api_url = f"https://api.thingspeak.com/channels/2410212/fields/2/last.json?api_key={api_key}"
+    api_url = f"https://api.thingspeak.com/channels/{CHANNEL_ID}/fields/{FREQUENCY_FIELD}/last.json?api_key={api_key}"
     response = requests.get(api_url)
     data = response.json()
     
     print("Data from ThingSpeak:", data)
     
-    if "field2" in data:
-        frequency_str = data["field2"]
+    if f"field{FREQUENCY_FIELD}" in data:
+        frequency_str = data[f"field{FREQUENCY_FIELD}"]
         new_frequency = int(frequency_str)
         print("Frequency from ThingSpeak:", new_frequency)
 
@@ -93,13 +98,13 @@ while True:
             rounded_temp = round(avg_temp, 2)
             print("Average temperature:", rounded_temp)
             # Publier la température arrondie sur ThingSpeak
-            client.publish(topicOut, "field1=" + str(rounded_temp))
+            client.publish(topicOut, f"field{TEMPERATURE_FIELD}={str(rounded_temp)}")
 
         else:
             print("No valid temperature readings obtained.")
 
     else:
-        print("Error: 'field2' not found in data")
+        print(f"Error: 'field{FREQUENCY_FIELD}' not found in data")
 
     # Attendre pour le temps spécifié dans la fréquence actuelle
     if current_frequency is not None:
