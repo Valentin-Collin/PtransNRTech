@@ -39,7 +39,7 @@ def get_temp():
     adjusted -= 46.85
     return adjusted
 
-def average_temperature(num_samples=5):
+def average_temperature(num_samples=10):
     temperatures = []
     for _ in range(num_samples):
         temp = get_temp()
