@@ -1,4 +1,3 @@
-#ESP32(NY) E102_1
 import network
 import utime
 from umqtt.simple import MQTTClient
@@ -6,19 +5,20 @@ from machine import Pin
 import time
 from machine import Pin, SoftI2C
 import requests
+from umqtt.robust import MQTTClient
 
 # Définition des variables globales pour les champs de fréquence et de température
-FREQUENCY_FIELD = "4"
-TEMPERATURE_FIELD = "3"
+FREQUENCY_FIELD = "2"
+TEMPERATURE_FIELD = "1"
 
-WiFi_SSID = "Galaxy A33 5GACC9"
-WiFi_PASS = "finlande"
+WiFi_SSID = "Bbox-7A35E7AB"
+WiFi_PASS = "XFrC7cCT37fwXh9bae"
 SERVER = "mqtt3.thingspeak.com"
 PORT = 1883
 CHANNEL_ID = "2410212"
 USER = "ASw3MikoNxkOFTQCBTMkGy0"
 CLIENT_ID = "ASw3MikoNxkOFTQCBTMkGy0"
-PASSWORD = "rPyDxQGnyDcOZWLSjnGwA82k"
+PASSWORD = "n1qZGzWBKTteVt+BWGp4Toim"
 
 # Dynamically set the field based on the field you want to publish
 topicOut = "channels/" + CHANNEL_ID + "/publish"
@@ -59,14 +59,14 @@ def wifi_connect():
         while not wlan.isconnected():
             pass
     print("Connected to Wifi Router")
-    
+
 def callback(topic,msg):
     print(topic)
     print(msg)
 
 wifi_connect()
 
-client = MQTTClient(CLIENT_ID, SERVER, PORT, USER, PASSWORD, 60)
+client = MQTTClient(CLIENT_ID, SERVER, PORT, USER, PASSWORD, 43600)
 client.set_callback(callback)
 client.connect()
 
@@ -79,26 +79,32 @@ while True:
     api_url = f"https://api.thingspeak.com/channels/{CHANNEL_ID}/fields/{FREQUENCY_FIELD}/last.json?api_key={api_key}"
     response = requests.get(api_url)
     data = response.json()
-    
+
     print("Data from ThingSpeak:", data)
-    
+
     if f"field{FREQUENCY_FIELD}" in data:
         frequency_str = data[f"field{FREQUENCY_FIELD}"]
         new_frequency = int(frequency_str)
         print("Frequency from ThingSpeak:", new_frequency)
 
-        # Vérifier si la fréquence actuelle est différente de la nouvelle fréquence
+        # Check if the current frequency is different from the new frequency
         if new_frequency != current_frequency:
             current_frequency = new_frequency
             print("Updating frequency to:", current_frequency)
 
+        # Attempt to reconnect MQTT client
+        client.reconnect()
+
+        # Retrieve average temperature
         avg_temp = average_temperature(num_samples=5)
         if avg_temp is not None:
-            # Arrondir la température moyenne à deux décimales
+            # Round the average temperature to two decimal places
             rounded_temp = round(avg_temp, 2)
             print("Average temperature:", rounded_temp)
-            # Publier la température arrondie sur ThingSpeak
+
+            # Publish the rounded temperature to ThingSpeak
             client.publish(topicOut, f"field{TEMPERATURE_FIELD}={str(rounded_temp)}")
+            print("Temperature sent to ThingSpeak")
 
         else:
             print("No valid temperature readings obtained.")
@@ -106,6 +112,7 @@ while True:
     else:
         print(f"Error: 'field{FREQUENCY_FIELD}' not found in data")
 
-    # Attendre pour le temps spécifié dans la fréquence actuelle
+    # Wait for the specified time in the current frequency
     if current_frequency is not None:
         time.sleep(current_frequency)
+
