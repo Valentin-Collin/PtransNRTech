@@ -1,166 +1,82 @@
-async function getTemperatureFromThingSpeak() {
-    const url = 'https://api.thingspeak.com/channels/2410212/fields/1.json?results=1';
+
+async function fetchTemperatureData() {
+    // URL de base pour les champs spécifiques
+    const baseUrl = 'https://api.thingspeak.com/channels/2410212/fields/';
+
+    // Identifiants des champs à récupérer
+    const fieldIds = {
+        E101: '1', // Supposons que field1 correspond à la salle E101
+        E102_1: '3', // Supposons que field3 correspond à la salle E102_1
+        E102_2: '5', // Supposons que field5 correspond à la salle E102_2
+        E103: '7', // Supposons que field7 correspond à la salle E103
+    };
 
     try {
-        const response = await fetch(url); // Utilisation de Fetch au lieu d'Axios
-        const data = await response.json();
-        const temperatureE101Element = document.getElementById('temperatureE101');
-        const temperature = data.feeds[0].field1;
+        // Boucle sur chaque champ et effectue une requête HTTP
+        for (let room in fieldIds) {
+            const fieldId = fieldIds[room];
+            const url = `${baseUrl}${fieldId}/last.json`;
+            const response = await axios.get(url);
+            const fieldValue = response.data[`field${fieldId}`]; // Accède dynamiquement à la bonne propriété
 
-        // Mettre à jour la température dans la section appropriée
-        temperatureE101Element.innerHTML = `<p>Température actuelle : ${temperature}°C</p>`;
+            // Vérifie si l'élément HTML exist avant de le mettre à jour
+            const element = document.getElementById(`temperature${room}`);
+            if (element) {
+                element.innerText = `Température : ${fieldValue}°C`;
+            } else {
+                console.warn(`Élément non trouvé : temperature${room}`);
+            }
+        }
     } catch (error) {
-        console.error('Erreur lors de la récupération de la température :', error);
+        console.error('Erreur lors de la récupération des données de température :', error);
     }
 }
 
-// Appeler la fonction au chargement de la page
-window.onload = () => {
-    getTemperatureFromThingSpeak();
+// Démarrage
+fetchTemperatureData();
 
-    // Actualiser la température toutes les 30 sec (30000 millisecondes)
-    setInterval(getTemperatureFromThingSpeak, 30000);
-    // Vous pouvez également ajouter d'autres initialisations ou actions ici
-};
+ 
 
 
-$(document).ready(function() {
-    var timeRange = 'Dernier Jour'; // Default time range
-    var field1Values = [];
-    var timestamps = [];
-    var myChart; // Global variable to store the chart instance
 
-    function fetchData() {
-        
-        var startDate;
+async function fetchFrequencyData() {
+    // URL de base pour les champs spécifiques
+    const baseUrl = 'https://api.thingspeak.com/channels/2410212/fields/';
 
-        // Adjust results and timescale based on time range
-        switch (timeRange) {
+    // Identifiants des champs à récupérer
+    const fieldIds = {
+        E101: '2', // Supposons que field2 correspond à la salle E101
+        E102_1: '4', // Supposons que field4 correspond à la salle E102
+        E103: '6', // Supposons que field6 correspond à la salle E103
+        E102_2: '8',
+    };
 
-            case 'Dernier Jour':
-                results = 500;
-                timescale = 30; // minutes
-                startDate = moment().startOf('second').subtract(1, 'days'); 
-                break;
-            case 'Dernier Mois':
-                results = 500; // 1 result per day for the last month
-                timescale = 1440; // Minutes per data point
-                startDate = moment().subtract(1, 'months'); // Start date set to 1 month ago from now
-                break;
-            case 'Derniere Annee':
-                results = 500; // 1 result per month for the last year
-                timescale = 1440;//43200; // Minutes per data point
-                startDate = moment().subtract(1, 'years'); // Start date set to 1 year ago from now
-                break;
-        }
-        
+    try {
+        // Boucle sur chaque champ et effectue une requête HTTP
+        for (let room in fieldIds) {
+            const fieldId = fieldIds[room];
+            const url = `${baseUrl}${fieldId}/last.json`;
+            const response = await axios.get(url);
+            // Assurez-vous d'accéder à la propriété correcte de la réponse
+            // La propriété à accéder dépend de la structure de la réponse de l'API
+            // Supposons que la valeur soit directement dans 'field{fieldId}' (e.g., 'field2')
+            const fieldValue = response.data[`field${fieldId}`]; // Accède dynamiquement à la bonne propriété
 
-        var formattedStartDate = startDate.format('YYYY-MM-DD HH:mm:ss');
-        var url = "https://api.thingspeak.com/channels/2410212/fields/1.json?api_key=1UBZZWF2IZVHKLBA&results=" + results + "&timescale=" + timescale + "&start=" + formattedStartDate;
 
-        axios.get(url)
-            .then(function(response) {
-                var data = response.data;
-                field1Values = [];
-                timestamps = [];
-
-                $.each(data.feeds, function(index, feed) {
-                    field1Values.push(feed.field1);
-                    timestamps.push(moment(feed.created_at).format('YYYY-MM-DD HH:mm'));
-                });
-
-                // Update temperature display
-                var latestTemperature = field1Values[field1Values.length - 1];
-                $("#temperatureE101").text("Température actuelle : " + latestTemperature + " °C");
-
-                // Update chart
-                updateChart();
-                if (timeRange !== 'Derniere Jour') {
-                    getTemperatureFromThingSpeak();
-                }
-            })
-            .catch(function(error) {
-                console.error("Error fetching data:", error);
-            });
-    }
-
-    function updateChart() {
-        var timeFormat = getTimeFormat();
-        var ctx = document.getElementById('GraphiqueTemperature').getContext('2d');
-
-        // Destroy the existing chart if it exists
-        if (myChart) {
-            myChart.destroy();
-        }
-
-        myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: timestamps,
-                datasets: [{
-                    label: 'Temperature °C',
-                    data: field1Values,
-                    borderColor: '#ff3131',
-                    backgroundColor: '#ff3131',
-                    fill: false,
-                    spanGaps: true, // Add this line to connect lines even when there are gaps
-                }]
-            },
-            options: {
-                scales: {
-                    xAxes: [{
-                        type: 'time',
-                        time: {
-                            unit: timeFormat.unit,
-                            displayFormats: {
-                                hour: 'MMM D, HH:mm',  // Adjust the format as needed
-                                day: 'MMM D',
-                                month: 'MMM YYYY'
-                            },
-                            tooltipFormat: 'MMM D, HH:mm'  // Adjust the tooltip format as needed
-                        },
-                        distribution: 'linear',
-                        ticks: {
-                            unitStepSize: timeFormat.unitStepSize // Added this line for better control over time scale
-                        }
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            max: 30, // Set the maximum value of the y-axis
-                            stepSize: 5 // Set the step size of the y-axis
-                        }
-                    }]
-                }
+            // Vérifie si l'élément HTML exist avant de le mettre à jour
+            const element = document.getElementById(`frequence${room}`);
+            if (element) {
+                element.innerText  = `Période : ${fieldValue} secondes`;
+            } else {
+                console.warn(`Élément non trouvé : frequence${room}`);
             }
-        });
-    }
-
-    function getTimeFormat() {
-        switch (timeRange) {
-            case 'Dernier Jour':
-                return { unit: 'minute', displayFormat: { hour: 'HH:mm' }, unitStepSize: 1 };
-            case 'Dernier Mois':
-                return { unit: 'day', displayFormat: { day: 'MMM D' }, unitStepSize: 1 };
-            case 'Derniere Annee':
-                return { unit: 'month', displayFormat: { month: 'MMM YYYY' }, unitStepSize: 1 };
-            default:
-                return { unit: 'hour', displayFormat: { hour: 'MMM D, HH:mm' }, unitStepSize: 1 };
         }
+    } catch (error) {
+        console.error('Erreur lors de la récupération des données de fréquence :', error);
     }
+}
 
-    // Event listener for time range dropdown change
-    $("#timeRange").change(function() {
-        timeRange = $(this).val();
-        fetchData(); // Fetch new data based on the selected time range
-        getTemperatureFromThingSpeak();
-    });
-
-    fetchData(); // Initial data fetch
-});
-
-
-
+fetchFrequencyData();
 
 
 

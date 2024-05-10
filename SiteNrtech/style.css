@@ -38,6 +38,10 @@ section {
 
 .room {
     font-weight: bold;
+    margin-right: 10px;
+    min-width: 120px;
+    display: flex; /* Utilisation de flexbox */
+    align-items: center; /* Alignement vertical */
 }
 
 footer {
@@ -98,4 +102,52 @@ a:hover {
     width: 100px;
     height: 100px;
     margin-right: 10px;
+}
+
+
+.frequence-item {
+    display: flex; /* Utilisation de flexbox pour les éléments individuels */
+}
+
+.frequence-label {
+    font-weight: bold;
+    margin-right: 10px; /* Espacement entre l'étiquette et la valeur */
+}
+
+.frequence-value {
+    font-style: italic;
+}
+.temperature-section {
+    margin-top: 20px;
+    margin-bottom: 10px; /* Ajoute une marge en bas pour éviter le chevauchement */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column; /* Met les éléments dans une colonne */
+}
+
+.frequence-section {
+    margin-top: 10px; /* Ajoute une marge en haut pour séparer les sections */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column; /* Met les éléments dans une colonne */
+}
+
+.temperature-section h2,.frequence-section h2 {
+    margin-right: auto; /* Forcer le titre à se positionner à gauche */
+}
+
+#dateHeure {
+    font-size: 1.2rem;
+    
+    margin-top: 10px;
 }

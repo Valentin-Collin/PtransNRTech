@@ -8,12 +8,13 @@
     <link rel="shortcut icon" href="C:\Users\valen\Downloads\lOGOnRTECH.webp" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 </head>
 <body>
 
     <header>
         <div class="button-container">
-            <a href="login.html" class="button">Réglage de la fréquence de mesure</a>
+            <a href="login.html" class="button">Réglage de la période d'échantillonnage</a>
         </div>
         <div class="logo-container">
             <a href="Sitetemp.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; justify-content: center;">
@@ -21,14 +22,11 @@
                 <h1 style="margin: 0;">Projet NRTECH</h1>
             </a>
         </div>
+        <p id="dateHeure"></p>
+
     </header>
-    <section>
-        <h2>Présentation du Projet</h2>
-        <p>
-            Plongez au cœur de notre projet de rénovation des boîtiers de mesure de température à Polytech Nantes.
-            Notre objectif ? Surveiller et afficher les températures des différentes salles du bâtiment Ireste.
-        </p>
-    </section>
+
+    
 
     <section class="temperature-section">
         <h2>Températures des Salles</h2>
@@ -43,27 +41,65 @@
                 </div>
     
                 <div class="col-sm-4">
-                    <a href="salle_e102.html" class="text-decoration-none">
-                        <p class="room">Salle E102</p>
+                    <a href="salle_e102_1.html" class="text-decoration-none">
+                        <p class="room">Salle E102 - Capteur 1</p>
                     </a>
-                    <p class="temperature">Température actuelle : 24°C</p>
+                    <p class="temperature" id="temperatureE102_1">Température actuelle : Chargement en cours...</p>
+                </div>
+                <div class="col-sm-4">
+                    <a href="salle_e102_2.html" class="text-decoration-none">
+                        <p class="room">Salle E102 - Capteur 2</p>
+                    </a>
+                    <p class="temperature" id="temperatureE102_2">Température actuelle : Chargement en cours...</p>
                 </div>
     
                 <div class="col-sm-4">
                     <a href="salle_e103.html" class="text-decoration-none">
                         <p class="room">Salle E103</p>
                     </a>
-                    <p class="temperature">Température actuelle : 24°C</p>
+                    <p class="temperature" id="temperatureE103">Température actuelle : Chargement en cours...</p>
                 </div>
             </div>
         </div>
     </section>
+    
+    <section class="frequence-section">
+        <h2>Périodes d'échantillonnage</h2>
+    
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <p class="room">Salle E101</p>
+                    <p class="frequence" id="frequenceE101">Période : Chargement en cours...</p>
+                </div>
+    
+                <!-- Modification pour salle E102 avec deux capteurs -->
+                <div class="col-sm-4">
+                    <p class="room">Salle E102 - Capteur 1</p>
+                    <p class="frequence" id="frequenceE102_1">Période : Chargement en cours...</p>
+                </div>
+                <div class="col-sm-4">
+                    <p class="room">Salle E102 - Capteur 2</p>
+                    <p class="frequence" id="frequenceE102_2">Période : Chargement en cours...</p>
+                </div>
+    
+                <div class="col-sm-4">
+                    <p class="room">Salle E103</p>
+                    <p class="frequence" id="frequenceE103">Période : Chargement en cours...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
 
     <footer>
         <p>&copy; 2024 Projet NRTECH</p>
     </footer>
-
+    <script src="Heure.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="FetchData.js"></script>
+    
 </body>
 </html>

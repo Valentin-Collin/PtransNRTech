@@ -13,7 +13,7 @@
 
     <header>
         <div class="button-container">
-            <a href="login.html" class="button">Réglage de la fréquence de mesure</a>
+            <a href="login.html" class="button">Réglage de la période d'échantillonnage</a>
         </div>
         <div class="logo-container">
             <a href="Sitetemp.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; justify-content: center;">
@@ -21,24 +21,38 @@
                 <h1 style="margin: 0;">Projet NRTECH</h1>
             </a>
         </div>
+        <p id="dateHeure"></p>
+
     </header>
 
     <section>
-        <h2>Réglage de la fréquence de mesure</h2>
-        <form action="update_frequency.php" method="post">
-            <label for="frequency">Fréquence de mesure :</label>
-            <select id="frequency" name="frequency">
-                <option value="5min">Toutes les 5 minutes</option>
-                <option value="30min">Toutes les 30 minutes</option>
-                <option value="1h">Toutes les heures</option>
+        <h2>Réglage de la période d'échantillonnage</h2>
+        <form id="frequencyForm">
+            <label for="frequency">Période d'échantillonnage :</label>
+            <input type="number" id="frequency" name="frequency" placeholder="Entrez la période en secondes" min="20" max="3600">
+            <button type="button" onclick="selectRandomFrequency()">Sélectionner aléatoire</button>
+            <label for="roomSelect">Sélectionnez une salle :</label>
+            <select id="roomSelect">
+                <option value="Salle E101">Salle E101</option>
+                <option value="Salle E102_1">Salle E102_1</option>
+                <option value="Salle E102_2">Salle E102_2</option>
+                <option value="Salle E103">Salle E103</option>
             </select>
-            <button type="submit">Enregistrer</button>
+            <button type="button" onclick="selectRoom(document.getElementById('roomSelect').value); updateFrequency();">Enregistrer</button>
         </form>
+        
+        
     </section>
 
     <footer>
         <p>&copy; 2024 Projet NRTECH</p>
     </footer>
 
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="admin_dashboard.js"></script>
+    <script src="Heure.js"></script>
 </body>
 </html>

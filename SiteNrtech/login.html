@@ -13,7 +13,7 @@
 
     <header>
         <div class="button-container">
-            <a href="login.html" class="button">Réglage de la fréquence de mesure</a>
+            <a href="login.html" class="button">Réglage de la période d'échantillonnage</a>
         </div>
         <div class="logo-container">
             <a href="Sitetemp.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; justify-content: center;">
@@ -40,24 +40,6 @@
        
     </section>
     
-    <script>
-        function attemptLogin() {
-            // Récupérer les valeurs des champs
-            var username = document.getElementById('username').value;
-            var password = document.getElementById('password').value;
-
-            // Effectuer la vérification côté client
-            if (username === "admin" && password === "admin123") {
-                // Informations d'identification correctes, rediriger vers la page admin
-                window.location.href = "admin_dashboard.html";
-            } else {
-                // Informations d'identification incorrectes, afficher un message d'erreur
-                var errorMessageElement = document.getElementById('error-message');
-                errorMessageElement.style.display = 'block';
-                errorMessageElement.innerHTML = "Nom d'utilisateur ou mot de passe incorrect.";
-            }
-        }
-    </script>
     <footer>
         <p>&copy; 2024 Projet NRTECH</p>
     </footer>
@@ -66,5 +48,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
     <script src="FetchData.js"></script>
+    <script src="login.js"></script>
 </body>
 </html>
