@@ -1,8 +1,8 @@
 # PtransNRTech
 
 
-Transversal Project: Data Measurement and Visualization
-Project Overview
+#Transversal Project: Data Measurement and Visualization
+#Project Overview
 The objective of this project was to measure environmental data in three classrooms within an engineering school building. The collected data is transmitted to a server for storage and later retrieval, enabling real-time visualization and analysis through a dedicated website. Additionally, the system allows users to vary the measurement period of the sensors.
 
 This project was developed in collaboration with the NRTech association.
